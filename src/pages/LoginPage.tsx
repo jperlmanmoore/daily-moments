@@ -8,13 +8,15 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { Redirect } from 'react-router';
+import { useAuth } from '../auth';
 
 interface Props {
-    loggedIn: boolean;
     onLogin: () => void;
 }
   
-  const LoginPage: React.FC<Props> = ( { loggedIn, onLogin} ) => {
+  const LoginPage: React.FC<Props> = ( { onLogin} ) => {
+    const { loggedIn} = useAuth();
+    // custom hook useAuth() - this component doesn't worry about React Context 
       if (loggedIn) {
        return <Redirect to="/my/entries" />;
       }

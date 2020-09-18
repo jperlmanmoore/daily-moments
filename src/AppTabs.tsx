@@ -12,12 +12,15 @@ import HomePage from "./pages/HomePage";
 import SettingsPage from "./pages/SettingsPage";
 import EntryPage from "./pages/EntryPage";
 import React from "react";
+import { useAuth } from "./auth";
 
-interface Props {
-  loggedIn: boolean;
-};
+// All pages or routes are properly secured now that we check to see
+// if the user is logged in here
+// the check applies to any "my" route
 
-const AppTabs: React.FC<Props> = ({ loggedIn }) => {
+
+const AppTabs: React.FC = () => {
+  const { loggedIn } = useAuth();
   if (!loggedIn) { 
     return <Redirect to="/login" />
   }
@@ -34,7 +37,6 @@ const AppTabs: React.FC<Props> = ({ loggedIn }) => {
         <Route exact path="/my/settings">
           <SettingsPage />
         </Route>
-        <Redirect exact path="/" to="/my/entries" />
       </IonRouterOutlet>
       {/* TAB BAR */}
       <IonTabBar slot="bottom">
