@@ -21,8 +21,9 @@ import { entries } from "../data";
         <IonContent className="ion-padding">
           <IonList>
               {entries.map((entry) =>
-              <IonItem color="blue" button key={entry.id} routerLink={`/entries/${entry.id}`}>
-                  {entry.title}</IonItem>)}
+                <IonItem button key={entry.id} 
+                routerLink={`/my/entries/${entry.id}`}>
+                {entry.title}</IonItem>)}
             </IonList>
         </IonContent>
       </IonPage>
