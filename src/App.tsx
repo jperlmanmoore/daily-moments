@@ -21,9 +21,8 @@ const App: React.FC = () => {
         <IonTabs>
         <IonRouterOutlet>
         <Route exact path="/login">
-           {loggedIn ?
-              <Redirect to="/entries" /> :
-              <LoginPage  onLogin={() => setLoggedIn(true)}/>
+           {<LoginPage loggedIn={loggedIn} 
+           onLogin={() => setLoggedIn(true)}/>
            }
         </Route>
         <Route exact path="/entries">
