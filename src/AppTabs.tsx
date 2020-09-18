@@ -13,7 +13,14 @@ import SettingsPage from "./pages/SettingsPage";
 import EntryPage from "./pages/EntryPage";
 import React from "react";
 
-const AppTabs: React.FC = () => {
+interface Props {
+  loggedIn: boolean;
+};
+
+const AppTabs: React.FC<Props> = ({ loggedIn }) => {
+  if (!loggedIn) { 
+    return <Redirect to="/login" />
+  }
   return (
     <IonTabs>
       {/* All private pages start wtih my */}

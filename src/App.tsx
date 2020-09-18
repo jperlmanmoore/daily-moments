@@ -11,7 +11,7 @@ import AppTabs from './AppTabs';
 const App: React.FC = () => {
 
   // set useState to true to test each page
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   console.log(`redering App with loggedIn=${loggedIn}`);
 
   return (
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           <Route path="/my">
             {/* match any path starting with "my" - allows us to group all
             private pages in the AppTabs as a component */}
-            <AppTabs />
+            <AppTabs loggedIn={loggedIn}/>
           </Route>
           <Redirect exact path="/" to="/my/entries" />
         </IonRouterOutlet>
