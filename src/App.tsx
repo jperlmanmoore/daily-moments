@@ -1,4 +1,4 @@
-import { IonApp } from '@ionic/react';
+import { IonApp, IonLoading } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import React, { useState, useEffect } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
@@ -15,20 +15,26 @@ import { auth } from './firebase';
 const App: React.FC = () => {
 
   // set useState to true to test each page
-  const [loggedIn, setLoggedIn] = useState(false);
-  // console.log(`redering App with loggedIn=${loggedIn}`);
+  const [authState, setAuthState] = useState({loggedIn: false, loading: true});
+  console.log(`redering App with authState=${authState}`);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      setLoggedIn(Boolean(user));
+      setAuthState({loading: false, loggedIn: Boolean(user)});
     });
   }, []);
+
+console.log(`redering the App with authState:`, authState);
+if (authState.loading) {
+  return <IonLoading isOpen />
+  // if IOS or Android you could take advangate of the native splash screen
+}
 
   return (
     <IonApp>
       {/* Because we want this to be availabel to everything
       wrap in the AuthContext Provider. It provides the context to 
       all the components inside it*/}
-      <AuthContext.Provider value={{loggedIn}}>
+      <AuthContext.Provider value={{loggedIn: authState.loggedIn}}>
         {/* Pass in the loggedIn state value here */}
       <IonReactRouter>
         <Switch>
