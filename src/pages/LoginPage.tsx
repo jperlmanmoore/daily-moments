@@ -74,7 +74,7 @@ interface Props {
         }
         <IonButton expand="block" onClick={handleLogin}>LOGIN</IonButton> 
         {
-        <IonLoading isOpen={status.loading=false} />
+        <IonLoading isOpen={status.loading} />
   }
         </IonContent>
       </IonPage>
