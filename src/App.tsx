@@ -1,17 +1,27 @@
 import { IonApp } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { AuthContext } from './auth';
 import LoginPage from './pages/LoginPage';
 import AppTabs from './AppTabs';
 import NotFoundPage from './pages/NotFoundPage';
+import { auth } from './firebase';
+
+// auth.onAuthStateChanged((user) => {
+//   console.log('onAuthStateChanged:', user)
+// });
 
 const App: React.FC = () => {
 
   // set useState to true to test each page
   const [loggedIn, setLoggedIn] = useState(false);
-  console.log(`redering App with loggedIn=${loggedIn}`);
+  // console.log(`redering App with loggedIn=${loggedIn}`);
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setLoggedIn(Boolean(user));
+    });
+  }, []);
 
   return (
     <IonApp>
@@ -23,7 +33,7 @@ const App: React.FC = () => {
       <IonReactRouter>
         <Switch>
           <Route exact path="/login">
-            <LoginPage onLogin={() => setLoggedIn(true)} />
+            <LoginPage />
           </Route>
           {/* AppTabs are now in a sort of second-level routing module */}
           <Route path="/my">

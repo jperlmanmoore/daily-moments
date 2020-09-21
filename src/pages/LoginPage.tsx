@@ -18,13 +18,11 @@ import { useAuth } from '../auth';
 import { auth } from '../firebase';
 import {useState} from 'react';
 
-interface Props {
-    onLogin: () => void;
-}
+
   
-  const LoginPage: React.FC<Props> = ( { onLogin} ) => {
+  const LoginPage: React.FC = () => {
     // custom hook useAuth() - this component doesn't worry about React Context 
-    const { loggedIn} = useAuth();
+    const { loggedIn } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState({loading: false, error: false});
@@ -34,9 +32,7 @@ interface Props {
       console.log({email, password});
       try {
       const credential = await auth.signInWithEmailAndPassword(email, password);
-      setStatus({loading: false, error: false})
       console.log('credential:', credential);
-      onLogin();
       } catch (error) {
         setStatus({loading: false, error: true});
         console.log('error:', error);
