@@ -4,8 +4,10 @@ import {
     IonHeader,
     IonTitle,
     IonToolbar,
+    IonButton,
 } from '@ionic/react';
 import React from 'react';
+import { auth } from '../firebase'
 
 
   
@@ -18,7 +20,10 @@ import React from 'react';
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-        This is the settings page
+        <IonButton expand="block" color="medium"
+          onClick={() => auth.signOut()}>
+          Logout
+          </IonButton>
         </IonContent>
       </IonPage>
     );
