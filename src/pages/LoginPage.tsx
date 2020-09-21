@@ -18,8 +18,6 @@ import { useAuth } from '../auth';
 import { auth } from '../firebase';
 import {useState} from 'react';
 
-
-  
   const LoginPage: React.FC = () => {
     // custom hook useAuth() - this component doesn't worry about React Context 
     const { loggedIn } = useAuth();
