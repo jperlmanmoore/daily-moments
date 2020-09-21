@@ -20,7 +20,7 @@ import {useState} from 'react';
 
 
   
-  const LoginPage: React.FC = () => {
+  const RegisterPage: React.FC = () => {
     // custom hook useAuth() - this component doesn't worry about React Context 
     const { loggedIn } = useAuth();
     const [email, setEmail] = useState('');
@@ -28,10 +28,10 @@ import {useState} from 'react';
     const [status, setStatus] = useState({loading: false, error: false});
   
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
       console.log({email, password});
       try {
-      const credential = await auth.signInWithEmailAndPassword(email, password);
+      const credential = await auth.createUserWithEmailAndPassword(email, password);
       console.log('credential:', credential);
       } catch (error) {
         setStatus({loading: false, error: true});
@@ -46,7 +46,7 @@ import {useState} from 'react';
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Daily Moments</IonTitle>
+            <IonTitle>Register</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
@@ -66,15 +66,18 @@ import {useState} from 'react';
           </IonList>
           {/* conditionally render - if err, then show this */}
           {status.error &&
-          <IonText color="danger">invalid credential</IonText>
+          <IonText color="danger">registration failed</IonText>
         }
-        <IonButton expand="block" onClick={handleLogin}>LOGIN</IonButton> 
-        <IonButton expand="block" fill="clear" routerLink="/register">DON'T HAVE AN ACCOUNT</IonButton> 
+        <IonButton expand="block" onClick={handleRegister}>Creat Account</IonButton> 
+        <IonButton expand="block" fill="clear" routerLink="/login">LOGIN</IonButton>
         <IonLoading isOpen={status.loading} />
+
         </IonContent>
       </IonPage>
     );
   };
   
-  export default LoginPage;
+  export default RegisterPage;
+
+  // ideally look at error code and display an appropriate message
   

@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import AppTabs from './AppTabs';
 import NotFoundPage from './pages/NotFoundPage';
 import { auth } from './firebase';
+import RegisterPage from './pages/RegisterPage';
 
 // auth.onAuthStateChanged((user) => {
 //   console.log('onAuthStateChanged:', user)
@@ -40,6 +41,9 @@ if (authState.loading) {
         <Switch>
           <Route exact path="/login">
             <LoginPage />
+          </Route>
+          <Route exact path="/register">
+            <RegisterPage />
           </Route>
           {/* AppTabs are now in a sort of second-level routing module */}
           <Route path="/my">
