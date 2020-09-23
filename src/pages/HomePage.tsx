@@ -9,33 +9,16 @@ import {
 } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
 import { firestore } from "../firebase";
+import { Entry, toEntry } from "../models";
 
 const HomePage: React.FC = () => {
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState<Entry[]>([]);
   useEffect(() => {
     const entriesRef = firestore.collection('entries');
-    entriesRef.orderBy("title", "asc").get().then((snapshot) => {
-      // snapshot.docs.forEach((doc) => console.log(doc.id, doc.data()));
-      
-      // convert the data inot an easier way to dispaly on the page
-      const entries = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      console.log('entries', entries)
-      setEntries(entries);
-    });
+    entriesRef.orderBy("title", "asc").get().then(( { docs }) => { setEntries(docs.map(toEntry));    
+    });    
   }, []);
-  // useEffect(() => {
-  //   const entriesRef = firestore.collection('entries');
-  //   entriesRef.get().then((snapshot) => {
-  //     const entries = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setEntries(entries);
-  //   }, []);
-  // });
+
   return (
     <IonPage>
       <IonHeader>
